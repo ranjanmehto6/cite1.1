@@ -31,7 +31,7 @@ public class PostServiceImpl implements PostService {
     //    public PostServiceImpl(PostRepositry postRepositry) {
 //        this.postRepositry = postRepositry;
 //    }
-
+//This  code is working perfectly fine
     @Override
     public PostDto savePost(PostDto postDto) {
         Post post = mapToPost(postDto);
