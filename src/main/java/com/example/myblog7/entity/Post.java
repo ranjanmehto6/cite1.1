@@ -1,0 +1,25 @@
+package com.example.myblog7.entity;
+
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "Posts")  //, uniqueConstraints = @UniqueConstraint(columnNames = {"tittles"})
+public class Post {
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String tittle;
+    private String description;
+    private String content;
+
+}
