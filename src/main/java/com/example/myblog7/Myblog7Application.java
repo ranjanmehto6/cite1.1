@@ -16,6 +16,7 @@ public class Myblog7Application {
 
     //We create bean when we want use external library is added for which IOC unable to create object we use
     // @Bean annotation
+    //This is a bean
     @Bean
     public ModelMapper modelMapper(){
         return new ModelMapper();
