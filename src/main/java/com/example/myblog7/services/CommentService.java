@@ -5,4 +5,5 @@ import com.example.myblog7.payload.CommentDto;
 public interface CommentService {
 
     CommentDto createComment(long postId, CommentDto commentDto);
+    public void deleteComment(long postId);
 }
