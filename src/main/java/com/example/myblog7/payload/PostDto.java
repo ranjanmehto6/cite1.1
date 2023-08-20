@@ -1,8 +1,12 @@
 package com.example.myblog7.payload;
 
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+
+import java.util.List;
 
 public class PostDto {
     private Long id;
@@ -16,6 +20,7 @@ public class PostDto {
     @NotEmpty
     @Size(min = 6,message = "Post content should be atleast 2 charcter")
     private String content;
+
 
     public PostDto() {
     }
