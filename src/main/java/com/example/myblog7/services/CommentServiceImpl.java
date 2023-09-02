@@ -9,6 +9,10 @@ import com.example.myblog7.repositry.PostRepositry;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+
 @Service
 public class CommentServiceImpl implements CommentService{
     private CommentRepositry commentRepositry;
@@ -35,6 +39,45 @@ public class CommentServiceImpl implements CommentService{
     public void deleteComment(long postId) {
         commentRepositry.deleteById(postId);
 
+    }
+
+    @Override
+    public CommentDto getCommentById(long postId) {
+        Comment comment = commentRepositry.findById(postId).orElseThrow(() -> new ResourceNotFound("NOT AVAILAIBLE WITH THIS ID " + postId));
+        CommentDto dto1 = mapToDto(comment);
+        return dto1;
+    }
+
+    @Override
+    public List<CommentDto> getAllPost() {
+        List<Comment> all = commentRepositry.findAll();
+        CommentDto allComment = mapToDto((Comment) all);
+        return (List<CommentDto>) allComment;
+    }
+
+    @Override
+    public List<CommentDto> getCommentByPostId(long postId) {
+        Post post =postRepositry.findById(postId).orElseThrow(()-> new ResourceNotFound("Post not found with id "+postId));
+        List<Comment> comment = commentRepositry.findByPostId(postId);
+        List<CommentDto> collect = comment.stream().map(comment1 -> mapToDto(comment1)).collect(Collectors.toList());
+        return collect;
+    }
+
+    @Override
+    public CommentDto getCommentById(Long postId, Long commentId) {
+        Post post =postRepositry.findById(postId).orElseThrow(()-> new ResourceNotFound("Post not found with id "+postId));
+        Comment comment =commentRepositry.findById(commentId).orElseThrow(()-> new ResourceNotFound("Post not found with id "+commentId));
+        CommentDto dto = mapToDto(comment);
+
+        return dto;
+    }
+
+    @Override
+    public Void deleteCommentById(Long postId, Long commentId) {
+        Post post =postRepositry.findById(postId).orElseThrow(()-> new ResourceNotFound("Post not found with id "+postId));
+        Comment comment =commentRepositry.findById(commentId).orElseThrow(()-> new ResourceNotFound("Post not found with id "+commentId));
+       commentRepositry.deleteById(commentId);
+        return null;
     }
 
 
